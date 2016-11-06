@@ -1,18 +1,15 @@
 let index = 1
-const Item = JSON.parse( localStorage.getItem( 'Items' ) )
 
 const setItem = todoItem => {
-  console.log( Item )
-  console.log( Array.isArray( Item ) )
+  const Item = JSON.parse( localStorage.getItem( 'Items' ) )
 
   if ( Item ) {
-    console.log( typeof Item )
     Item.push( todoItem )
-    localStorage.setItem( 'Items', JSON.stringify( Item ) )
+    return localStorage.setItem( 'Items', JSON.stringify( Item ) )
   } else {
     const ItemContainer  = []
     ItemContainer.push( todoItem )
-    localStorage.setItem('Items', JSON.stringify( ItemContainer ) )
+    return localStorage.setItem('Items', JSON.stringify( ItemContainer ) )
   }
 }
 
@@ -31,3 +28,25 @@ const displayInput = () => {
   ++index
   return text
 }
+
+const getItems = () => {
+  const Item = JSON.parse( localStorage.getItem( 'Items' ) )
+
+  if ( Item ) {
+    for (let index = 0; index < Item.length; index++) {
+      const listItem = document.createElement("DIV")
+      listItem.setAttribute("id", `displayInputHtml${ index }`)
+      document.body.appendChild( listItem )
+      const displayInputHtml = document.querySelector( `div#displayInputHtml${ index }` )
+      const text = displayInputHtml.innerText = Item[ index ]
+    }
+  } else {
+    const listItem = document.createElement("DIV")
+    document.body.appendChild( listItem )
+    listItem.setAttribute("id", 'not-found')
+    const displayInputHtml = document.querySelector( 'div#not-found' )
+    const text = displayInputHtml.innerText = 'No Items are created, Get started'
+  }
+}
+
+getItems()
