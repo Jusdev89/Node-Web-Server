@@ -1,3 +1,7 @@
 #displayInputHtml1 {
   color: blue;
 }
+
+.cross-out {
+  text-decoration: line-through;
+}
