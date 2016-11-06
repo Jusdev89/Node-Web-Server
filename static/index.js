@@ -1,13 +1,23 @@
 let Item = JSON.parse( localStorage.getItem( 'Items' ) )
-let index = Item ? Item.length : 1
-const e = ItemEvent
+let index = Item ? Item.length : 0
 
 const displayInput = () =>
-  e.createTodo( Item, e.completed, e.deleted, e.setItem, ++index )
+  ItemEvent.createTodo({
+    Item,
+    completed: ItemEvent.completed,
+    deleted: ItemEvent.deleted,
+    setItem: ItemEvent.setItem,
+    index: ++index
+  })
 
 const getItems = () => {
   if ( Item ) {
-    e.list( Item, e.completed, e.deleted )
+    ItemEvent.list({
+      Item,
+      completed: ItemEvent.completed,
+      deleted: ItemEvent.deleted,
+      index: index
+    })
   } else {
     Message.noItems()
   }

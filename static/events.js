@@ -2,6 +2,7 @@ const ItemEvent = {
   setItem: ( Item, todo ) => {
     if ( Item ) {
       Item.push( todo )
+      console.log( 'Todo', todo )
       return localStorage.setItem( 'Items', JSON.stringify( Item ) )
     } else {
       const ItemContainer  = []
@@ -25,32 +26,29 @@ const ItemEvent = {
       return listItem.remove()
     })
   },
-  list: ( Item, completed, deleted ) => {
-    for ( let index = 0; index < Item.length; index++ ) {
-      const divContainer = document.querySelector( '.mui-container' )
-      const listItem = document.createElement("DIV")
-      listItem.setAttribute( 'id', `displayInputHtml${ index }` )
+  list: model => {
+    for ( let index = 0; index < model.Item.length; index++ ) {
+      const divContainer = Display.container()
+      const listItem = Display.item( model.index )
       divContainer.appendChild( listItem )
-      const displayInputHtml = document.querySelector( `div#displayInputHtml${ index }` )
-      displayInputHtml.innerText = `${ index ? index : ++index }.  ${ Item[ index ].value }`
-      completed( listItem, index, Item )
-      deleted( listItem, index, Item )
-      if ( Item[ `${ index ? index : ++index }` ].completed ) {
+      const displayInputHtml = Display.input( model.index )
+      model.completed( listItem, model.index, model.Item )
+      model.deleted( listItem, model.index, model.Item )
+      if ( model.Item[ `${ model.index }` ].completed ) {
         listItem.className = "cross-out"
       }
+
     }
   },
-  createTodo: ( Item, completed, deleted, setItem, index ) => {
-    const divContainer = document.querySelector( '.mui-container' )
-    const listItem = document.createElement("DIV")
-    listItem.setAttribute("id", `displayInputHtml${ index }`)
+  createTodo: model => {
+    const divContainer = Display.container()
+    const listItem = Display.item( model.index )
     divContainer.appendChild( listItem )
-    const displayInputHtml = document.querySelector( `div#displayInputHtml${ index }` )
-    const input = document.querySelector( 'input#display-input' )
-    const text = displayInputHtml.innerText = `${ index }. ${ input.value }`
-    setItem( Item, { value: input.value } )
-    completed( listItem, index, Item )
-    deleted( listItem, index, Item )
+    const text = Display.input( model.index )
+
+    model.setItem( model.Item, { id: model.index, value: text } )
+    model.completed( listItem, model.index, model.Item )
+    model.deleted( listItem, model.index, model.Item )
     return text
   }
 }
