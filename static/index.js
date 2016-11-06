@@ -1,4 +1,5 @@
-let index = 1
+let itemsCount = JSON.parse( localStorage.getItem( 'Items' ) )
+let index = itemsCount ? itemsCount.length : 1
 
 const setItem = todoItem => {
   const Item = JSON.parse( localStorage.getItem( 'Items' ) )
@@ -23,7 +24,7 @@ const displayInput = () => {
   const input = document.querySelector( 'input#display-input' )
   const text = displayInputHtml.innerText = `${ index }. ${ input.value }`
 
-  setItem( `${ index }. ${ input.value }` )
+  setItem( input.value )
 
   ++index
   return text
@@ -38,7 +39,7 @@ const getItems = () => {
       listItem.setAttribute("id", `displayInputHtml${ index }`)
       document.body.appendChild( listItem )
       const displayInputHtml = document.querySelector( `div#displayInputHtml${ index }` )
-      const text = displayInputHtml.innerText = Item[ index ]
+      const text = displayInputHtml.innerText = `${ index ? index : ++index }.  ${ Item[ index ] }`
     }
   } else {
     const listItem = document.createElement("DIV")
