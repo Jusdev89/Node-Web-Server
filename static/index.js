@@ -3,7 +3,7 @@ let index = Item ? Item.length : 1
 const e = ItemEvent
 
 const displayInput = () =>
-  e.createTodo( Item, e.completed, e.deleted, e.setItem )
+  e.createTodo( Item, e.completed, e.deleted, e.setItem, ++index )
 
 const getItems = () => {
   if ( Item ) {

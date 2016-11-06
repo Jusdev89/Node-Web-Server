@@ -27,9 +27,10 @@ const ItemEvent = {
   },
   list: ( Item, completed, deleted ) => {
     for ( let index = 0; index < Item.length; index++ ) {
+      const divContainer = document.querySelector( '.mui-container' )
       const listItem = document.createElement("DIV")
       listItem.setAttribute( 'id', `displayInputHtml${ index }` )
-      document.body.appendChild( listItem )
+      divContainer.appendChild( listItem )
       const displayInputHtml = document.querySelector( `div#displayInputHtml${ index }` )
       displayInputHtml.innerText = `${ index ? index : ++index }.  ${ Item[ index ].value }`
       completed( listItem, index, Item )
@@ -39,18 +40,17 @@ const ItemEvent = {
       }
     }
   },
-  createTodo: ( Item, completed, deleted, setItem ) => {
-    let index = Item ? Item.length : 1
+  createTodo: ( Item, completed, deleted, setItem, index ) => {
+    const divContainer = document.querySelector( '.mui-container' )
     const listItem = document.createElement("DIV")
     listItem.setAttribute("id", `displayInputHtml${ index }`)
-    document.body.appendChild( listItem )
+    divContainer.appendChild( listItem )
     const displayInputHtml = document.querySelector( `div#displayInputHtml${ index }` )
     const input = document.querySelector( 'input#display-input' )
     const text = displayInputHtml.innerText = `${ index }. ${ input.value }`
     setItem( Item, { value: input.value } )
     completed( listItem, index, Item )
     deleted( listItem, index, Item )
-    ++index
     return text
   }
 }
