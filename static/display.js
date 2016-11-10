@@ -7,8 +7,8 @@ const Display = {
   },
   input: index => {
     const displayInputHtml = document.querySelector( `div#displayInputHtml${ index }` )
-    const input = document.querySelector( 'mui-textfield#display-input' )
-    const text = displayInputHtml.innerText = `${ index }. ${ input.value }`
+    const input = document.querySelector( '#display-input::shadow input' )
+    const text = displayInputHtml.innerText = `${ input.value }`
     return text
   }
 }

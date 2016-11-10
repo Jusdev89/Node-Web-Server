@@ -26,29 +26,30 @@ const ItemEvent = {
       return listItem.remove()
     })
   },
-  list: model => {
-    for ( let index = 0; index < model.Item.length; index++ ) {
+  list: ( { Item, completed, deleted } ) => {
+    for ( let index = 0; index < Item.length; index++ ) {
       const divContainer = Display.container()
-      const listItem = Display.item( model.index )
+      const listItem = Display.item( index )
       divContainer.appendChild( listItem )
-      const displayInputHtml = Display.input( model.index )
-      model.completed( listItem, model.index, model.Item )
-      model.deleted( listItem, model.index, model.Item )
-      if ( model.Item[ `${ model.index }` ].completed ) {
+      const displayInputHtml = document.querySelector( `div#displayInputHtml${ index }` )
+      displayInputHtml.innerText = `${ index ? index : ++index }.  ${ Item[ index ].value }`
+      completed( listItem, index, Item )
+      deleted( listItem, index, Item )
+      if ( Item[ `${ index ? index : ++index }` ].completed ) {
         listItem.className = "cross-out"
       }
 
     }
   },
-  createTodo: model => {
+  createTodo: ( { Item, completed, deleted, setItem ,index } )  => {
     const divContainer = Display.container()
-    const listItem = Display.item( model.index )
+    const listItem = Display.item( index )
     divContainer.appendChild( listItem )
-    const text = Display.input( model.index )
+    const text = Display.input( index )
 
-    model.setItem( model.Item, { id: model.index, value: text } )
-    model.completed( listItem, model.index, model.Item )
-    model.deleted( listItem, model.index, model.Item )
+    setItem( Item, { id: index, value: text } )
+    completed( listItem, index, Item )
+    deleted( listItem, index, Item )
     return text
   }
 }
