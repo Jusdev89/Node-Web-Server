@@ -1,17 +1,26 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <title>Todo List</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//cdn.muicss.com/mui-0.9.3/css/mui.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="static/index.css" />
   </head>
   <body>
-    <div class="mui-appbar"></div>
 
+    <div class="mui-appbar"></div>
     <div class="mui-container">
-      <h1> Todo List </h1>
-      <input id="display-input" type="text" name="name"/ >
-      <button class="mui-btn mui-btn--primary" type="button" onclick="displayInput()">Submit</button>
+      <div class="mui--text-display1"> Todo List </div>
+      <div class="mui-panel">
+        <mui-textfield id="display-input" type="text" label="todo" floating></mui-textfield>
+        <button class="mui-btn mui-btn--primary mui-btn--raised" type="button" onclick="displayInput()">Add</button>
+      </div>
     </div>
 
+    <script src="//cdn.muicss.com/mui-0.9.3/webcomponents/mui-webcomponents.js"></script>
+    <script type="text/javascript" src="static/display.js"></script>
     <script type="text/javascript" src="static/message.js"></script>
     <script type="text/javascript" src="static/events.js"></script>
     <script type="text/javascript" src="static/index.js"></script>
