@@ -25,23 +25,35 @@ const ItemMethods = new function() {
         return localStorage.setItem('Items', JSON.stringify( ItemContainer ) )
       }
     }
+    this.updateItem = ({Item, todoValue, index}) => {
+      Item[index] = {
+        id: index,
+        value: todoValue
+      }
+      return localStorage.setItem( 'Items', JSON.stringify( Item ) )
+    }
     return {
-      list: Item => {
-        for ( let index = 1; index < Item.length; index++ ) {
-          const { listItem } = Display.renderView({ index, todo: Item[index] })
-          this.completed( listItem, index, Item )
-          this.deleted( listItem, index, Item )
-          if ( Item[ `${ index }` ].completed ) {
-            listItem.className = "cross-out"
-          }
-        }
-      },
       createTodo: ( { Item , index } )  => {
         const { text, listItem } = Display.renderView({ index })
         this.setItem(Item, { id: index, value: text })
         this.completed(listItem, index, Item)
         this.deleted( listItem, index, Item )
         return text
+      },
+      list: Item => {
+        for ( let index = 1; index < Item.length; index++ ) {
+          const { listItem } = Display.renderView({
+            index,
+            todo: Item[index],
+            update:  this.updateItem,
+            Item
+          })
+          this.completed( listItem, index, Item )
+          this.deleted( listItem, index, Item )
+          if ( Item[ `${ index }` ].completed ) {
+            listItem.className = "cross-out"
+          }
+        }
       }
     }
 }
