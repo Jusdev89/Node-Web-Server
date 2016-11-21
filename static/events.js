@@ -1,20 +1,20 @@
 const ItemMethods = new function() {
-    this.deleted = ( listItem, index, Item ) => {
-      return listItem.addEventListener( 'dblclick', () => {
+    this.deleted = ( listItem, index, Item ) =>
+      listItem.addEventListener( 'dblclick', () => {
         Item.splice( index, 1 )
         localStorage.setItem( 'Items', JSON.stringify( Item ) )
         return listItem.remove()
       })
-    }
-    this.completed = ( listItem, index, Item ) => {
-      return listItem.addEventListener( 'click', () => {
+
+    this.completed = ( listItem, index, Item ) =>
+      listItem.addEventListener( 'click', () => {
         let item = Item[ `${ index ? index : ++index }` ]
         item.completed = true
         Item[ index ] = item
         localStorage.setItem( 'Items', JSON.stringify( Item ) )
         return listItem.className = 'cross-out'
       })
-    }
+
     this.setItem = ( Item, todo ) => {
       if ( Item ) {
         Item.push( todo )
@@ -25,6 +25,7 @@ const ItemMethods = new function() {
         return localStorage.setItem('Items', JSON.stringify( ItemContainer ) )
       }
     }
+
     this.updateItem = ({Item, todoValue, index}) => {
       Item[index] = {
         id: index,
@@ -32,6 +33,7 @@ const ItemMethods = new function() {
       }
       return localStorage.setItem( 'Items', JSON.stringify( Item ) )
     }
+    
     return {
       createTodo: ( { Item , index } )  => {
         const { text, listItem } = Display.renderView({ index })

@@ -12,4 +12,5 @@ const getItems = () => {
   }
 }
 
+Display.helpBox()
 getItems()
